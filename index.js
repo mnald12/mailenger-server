@@ -10,8 +10,10 @@ import {
    removeUser,
    getUsers2,
    addUser2,
-   getMessages,
 } from './methods/methods'
+
+import { sendMessage } from './methods/sendMessage'
+import { getMessages } from './methods/getMessages'
 
 const app = express()
 const PORT = 3002
@@ -31,23 +33,13 @@ app.use(bodyParser.json())
 
 app.get('/', getUsers)
 
-app.route('/users')
-   .get((req, res, next) => {
-      next()
-   }, getUsers)
-   .post(addUser)
+app.route('/users').get(getUsers).post(addUser)
 
-app.route('/users2')
-   .get((req, res, next) => {
-      next()
-   })
-   .post(addUser2)
+app.route('/users2').post(addUser2)
 
-app.route('/users2/:email/:pwd/:host/:port')
-   .get((req, res, next) => {
-      next()
-   })
-   .get(getMessages)
+app.route('/users2/:email/:pwd/:host/:port').get(getMessages)
+
+app.route('/send').post(sendMessage)
 
 app.route('/users/:userId').get(getUser).put(updateUser).delete(removeUser)
 
