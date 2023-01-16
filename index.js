@@ -32,15 +32,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.get('/', getUsers)
-
 app.route('/users').get(getUsers).post(addUser)
-
 app.route('/users2').post(addUser2)
-
 app.route('/users2/:email/:pwd/:host/:port').get(getMessages)
-
 app.route('/send').post(sendMessage)
-
 app.route('/users/:userId').get(getUser).put(updateUser).delete(removeUser)
-
 app.listen(PORT, () => console.log(`running on port ${PORT}`))

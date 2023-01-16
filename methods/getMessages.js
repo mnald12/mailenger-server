@@ -53,7 +53,6 @@ export const getMessages = (req, res) => {
    })
 
    imap.once('end', () => {
-      console.log('Connection ended')
       res.json(messages)
    })
 
