@@ -1,8 +1,15 @@
 import mongoose from 'mongoose'
-import { UserSchema, UserSchema2 } from '../schema/schema'
+import {
+   GroupMessageSchema,
+   GroupSchema,
+   UserSchema,
+   UserSchema2,
+} from '../schema/schema'
 
 const User = mongoose.model('User', UserSchema)
 const User2 = mongoose.model('User2', UserSchema2)
+const Group = mongoose.model('Group', GroupSchema)
+const GroupMess = mongoose.model('GroupMess', GroupMessageSchema)
 
 export const addUser = (req, res) => {
    let newUser = new User(req.body)
@@ -72,5 +79,45 @@ export const removeUser = (req, res) => {
          res.send(err)
       }
       res.json({ message: 'successfuly remove the user' })
+   })
+}
+
+export const newGroup = (req, res) => {
+   let newGroup = new Group(req.body)
+
+   newGroup.save((err, group) => {
+      if (err) {
+         res.send(err)
+      }
+      res.json(group)
+   })
+}
+
+export const getGroup = (req, res) => {
+   Group.find({}, (err, group) => {
+      if (err) {
+         res.send(err)
+      }
+      res.json(group)
+   })
+}
+
+export const newMessage = (req, res) => {
+   let GM = new GroupMess(req.body)
+
+   GM.save((err, mess) => {
+      if (err) {
+         res.send(err)
+      }
+      res.json(mess)
+   })
+}
+
+export const getGroupMess = (req, res) => {
+   GroupMess.find({}, (err, mess) => {
+      if (err) {
+         res.send(err)
+      }
+      res.json(mess)
    })
 }

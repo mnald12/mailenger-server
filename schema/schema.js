@@ -31,3 +31,33 @@ export const UserSchema2 = new Schema({
       type: Number,
    },
 })
+
+export const GroupSchema = new Schema({
+   groupId: {
+      type: String,
+   },
+   groupName: {
+      type: String,
+   },
+   creator: {
+      type: String,
+   },
+   members: {
+      type: Array,
+   },
+})
+
+export const GroupMessageSchema = new Schema({
+   to: {
+      type: String,
+   },
+   from: {
+      type: String,
+   },
+   date: {
+      type: String,
+   },
+   message: {
+      type: String,
+   },
+})
