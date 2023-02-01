@@ -107,7 +107,7 @@ io.on('connection', (socket) => {
    })
 })
 
-server.listen(4003)
+server.listen(PORT)
 
 mongoose.set('strictQuery', true)
 mongoose.Promise = global.Promise
