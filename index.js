@@ -22,7 +22,8 @@ import { getGroupMessages } from './methods/getGroupMessages'
 
 const http = require('http')
 const app = express()
-const PORT = 9001
+const PORT = 7008
+const PORT2 = 7009
 
 const server = http.createServer(app)
 const io = require('socket.io')(server, {
@@ -107,7 +108,7 @@ io.on('connection', (socket) => {
    })
 })
 
-server.listen(9002)
+server.listen(PORT2)
 
 mongoose.set('strictQuery', true)
 mongoose.Promise = global.Promise
