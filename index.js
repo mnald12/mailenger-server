@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
+const path = require('path')
 
 import {
    addUser,
@@ -22,8 +23,7 @@ import { getGroupMessages } from './methods/getGroupMessages'
 
 const http = require('http')
 const app = express()
-const PORT = 7008
-const PORT2 = 7009
+const PORT = 3000
 
 const server = http.createServer(app)
 const io = require('socket.io')(server, {
@@ -108,8 +108,6 @@ io.on('connection', (socket) => {
    })
 })
 
-server.listen(PORT2)
-
 mongoose.set('strictQuery', true)
 mongoose.Promise = global.Promise
 
@@ -122,8 +120,12 @@ mongoose.connect(
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(express.static(path.join(__dirname, 'build')))
 
-app.get('/', getUsers)
+app.get('/', (req, res) => {
+   res.sendFile(path.join(__dirname, 'build/index.html'))
+})
+
 app.route('/users').get(getUsers).post(addUser)
 app.route('/users2').post(addUser2)
 app.route('/users2/:email/:pwd/:host/:port/:init/:end').get(getMessages)
@@ -133,4 +135,4 @@ app.route('/group').get(getGroup).post(newGroup)
 app.route('/group/:GID').put(updateGroup)
 app.route('/group/messages').get(getGroupMess).post(newMessage)
 app.route('/group/messages/:email/:pwd/:host/:port').get(getGroupMessages)
-app.listen(PORT, () => console.log(`running on port ${PORT}`))
+server.listen(PORT, () => console.log(`running on port ${PORT}`))
