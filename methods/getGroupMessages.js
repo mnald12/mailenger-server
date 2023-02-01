@@ -2,8 +2,7 @@ const Imap = require('imap')
 const MailParser = require('mailparser')
 const moment = require('moment')
 
-export const getMessages = (req, res) => {
-   let totals
+export const getGroupMessages = (req, res) => {
    const fetchMessage = () =>
       new Promise((resolve) => {
          const imap = new Imap({
@@ -18,7 +17,7 @@ export const getMessages = (req, res) => {
          let messages = []
 
          const openInbox = (cb) => {
-            imap.openBox('[Gmail]/All Mail', true, cb)
+            imap.openBox('INBOX', true, cb)
          }
 
          const emailListParser = []
@@ -26,8 +25,8 @@ export const getMessages = (req, res) => {
          imap.once('ready', () => {
             openInbox((err, box) => {
                if (err) throw err
-               totals = box.messages.total
-               var f = imap.seq.fetch(`${req.params.init}:${req.params.end}`, {
+
+               var f = imap.seq.fetch(`1:*`, {
                   bodies: '',
                   struct: true,
                })
@@ -68,11 +67,10 @@ export const getMessages = (req, res) => {
 
          imap.once('error', (err) => {
             console.log(err)
+            console.log('error')
          })
 
          imap.connect()
       })
-   fetchMessage().then((messages) =>
-      res.json({ messages: messages, total: totals })
-   )
+   fetchMessage().then((messages) => res.json(messages))
 }

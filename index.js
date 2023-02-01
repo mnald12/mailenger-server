@@ -13,10 +13,12 @@ import {
    getGroup,
    getGroupMess,
    newMessage,
+   updateGroup,
 } from './methods/methods'
 
 import { sendMessage } from './methods/sendMessage'
 import { getMessages } from './methods/getMessages'
+import { getGroupMessages } from './methods/getGroupMessages'
 
 const http = require('http')
 const app = express()
@@ -41,7 +43,6 @@ io.on('connection', (socket) => {
          id: id,
          email: email,
       })
-      console.log(connected)
    })
 
    socket.on('get-id', (email, passID) => {
@@ -84,6 +85,20 @@ io.on('connection', (socket) => {
       io.to(id).emit('close')
    })
 
+   socket.on('send-email', (data) => {
+      const reciever = connected.find((c) => data.to === c.email)
+      if (reciever) {
+         io.to(reciever.id).emit('recieve-email', data)
+      }
+   })
+
+   socket.on('send-group-email', (data) => {
+      const reciever = connected.find((c) => data.sendTo === c.email)
+      if (reciever) {
+         io.to(reciever.id).emit('recieve-group-email', data)
+      }
+   })
+
    socket.on('disconnect', () => {
       const newConnected = connected.filter(
          ({ id: id, emaill: email }) => id !== socket.id
@@ -110,9 +125,11 @@ app.use(bodyParser.json())
 app.get('/', getUsers)
 app.route('/users').get(getUsers).post(addUser)
 app.route('/users2').post(addUser2)
-app.route('/users2/:email/:pwd/:host/:port').get(getMessages)
+app.route('/users2/:email/:pwd/:host/:port/:init/:end').get(getMessages)
 app.route('/send').post(sendMessage)
 app.route('/users/:userId').get(getUser).put(updateUser).delete(removeUser)
 app.route('/group').get(getGroup).post(newGroup)
+app.route('/group/:GID').put(updateGroup)
 app.route('/group/messages').get(getGroupMess).post(newMessage)
+app.route('/group/messages/:email/:pwd/:host/:port').get(getGroupMessages)
 app.listen(PORT, () => console.log(`running on port ${PORT}`))

@@ -93,6 +93,21 @@ export const newGroup = (req, res) => {
    })
 }
 
+export const updateGroup = (req, res) => {
+   console.log(req.params.GID)
+   Group.findOneAndUpdate(
+      { _id: req.params.GID },
+      req.body,
+      { new: true, useFindAndModify: false },
+      (err, grp) => {
+         if (err) {
+            res.send(err)
+         }
+         res.json(grp)
+      }
+   )
+}
+
 export const getGroup = (req, res) => {
    Group.find({}, (err, group) => {
       if (err) {
