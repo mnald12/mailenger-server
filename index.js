@@ -23,7 +23,7 @@ import { getGroupMessages } from './methods/getGroupMessages'
 
 const http = require('http')
 const app = express()
-const PORT = 80
+const PORT = 9000
 
 const server = http.createServer(app)
 const io = require('socket.io')(server, {
