@@ -20,6 +20,7 @@ import {
 import { sendMessage } from './methods/sendMessage'
 import { getMessages } from './methods/getMessages'
 import { getGroupMessages } from './methods/getGroupMessages'
+import { login } from './methods/login'
 
 const http = require('http')
 const app = express()
@@ -120,12 +121,14 @@ mongoose.connect(
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
 app.use(express.static(path.join(__dirname, 'build')))
 
 app.get('/', (req, res) => {
    res.sendFile(path.join(__dirname, 'build/index.html'))
 })
 
+app.route('/user/:email/:pwd/:host/:port').get(login)
 app.route('/users').get(getUsers).post(addUser)
 app.route('/users2').post(addUser2)
 app.route('/users2/:email/:pwd/:host/:port/:init/:end').get(getMessages)
