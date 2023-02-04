@@ -56,7 +56,6 @@ io.on('connection', (socket) => {
    })
 
    socket.on('send-offer', (ownId, id, localDescription, name, mode) => {
-      console.log(id, 1)
       io.to(id).emit('offer', ownId, localDescription, name, mode)
    })
 
