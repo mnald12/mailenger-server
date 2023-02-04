@@ -37,9 +37,6 @@ const io = require('socket.io')(server, {
 let connected = []
 
 io.on('connection', (socket) => {
-   //
-   socket.emit('me', socket.id)
-
    socket.on('save-user', (id, email) => {
       connected.push({
          id: id,
@@ -59,6 +56,7 @@ io.on('connection', (socket) => {
    })
 
    socket.on('send-offer', (ownId, id, localDescription, name, mode) => {
+      console.log(id, 1)
       io.to(id).emit('offer', ownId, localDescription, name, mode)
    })
 
