@@ -2,7 +2,7 @@ const Imap = require('imap')
 const MailParser = require('mailparser')
 const moment = require('moment')
 
-export const getMessages = (req, res) => {
+const getMessages = (req, res) => {
    let totals
    const fetchMessage = () =>
       new Promise((resolve) => {
@@ -76,3 +76,5 @@ export const getMessages = (req, res) => {
       res.json({ messages: messages, total: totals })
    )
 }
+
+module.exports = { getMessages }

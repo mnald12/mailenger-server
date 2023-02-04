@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-export const sendMessage = async (req, res) => {
+const sendMessage = async (req, res) => {
    const transport = nodemailer.createTransport({
       host: req.body.host,
       port: req.body.port,
@@ -22,3 +22,5 @@ export const sendMessage = async (req, res) => {
       res.json(result)
    }
 }
+
+module.exports = { sendMessage }

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-export const UserSchema = new Schema({
+const UserSchema = new Schema({
    userName: {
       type: String,
    },
@@ -16,7 +16,7 @@ export const UserSchema = new Schema({
    },
 })
 
-export const UserSchema2 = new Schema({
+const UserSchema2 = new Schema({
    userEmail: {
       type: String,
    },
@@ -31,7 +31,7 @@ export const UserSchema2 = new Schema({
    },
 })
 
-export const GroupSchema = new Schema({
+const GroupSchema = new Schema({
    groupId: {
       type: String,
    },
@@ -46,7 +46,7 @@ export const GroupSchema = new Schema({
    },
 })
 
-export const GroupMessageSchema = new Schema({
+const GroupMessageSchema = new Schema({
    to: {
       type: String,
    },
@@ -60,3 +60,5 @@ export const GroupMessageSchema = new Schema({
       type: String,
    },
 })
+
+module.exports = { UserSchema, UserSchema2, GroupSchema, GroupMessageSchema }

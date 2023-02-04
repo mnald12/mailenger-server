@@ -12,7 +12,7 @@ const User2 = mongoose.model('User2', UserSchema2)
 const Group = mongoose.model('Group', GroupSchema)
 const GroupMess = mongoose.model('GroupMess', GroupMessageSchema)
 
-export const addUser = (req, res) => {
+const addUser = (req, res) => {
    let newUser = new User(req.body)
 
    newUser.save((err, user) => {
@@ -23,7 +23,7 @@ export const addUser = (req, res) => {
    })
 }
 
-export const addUser2 = async (req, res) => {
+const addUser2 = async (req, res) => {
    let newUser = new User2(req.body)
    newUser.save((err, user) => {
       if (err) {
@@ -33,7 +33,7 @@ export const addUser2 = async (req, res) => {
    })
 }
 
-export const getUsers = (req, res) => {
+const getUsers = (req, res) => {
    User.find({}, (err, user) => {
       if (err) {
          res.send(err)
@@ -42,7 +42,7 @@ export const getUsers = (req, res) => {
    })
 }
 
-export const getUsers2 = (req, res) => {
+const getUsers2 = (req, res) => {
    User2.find({}, (err, user) => {
       if (err) {
          res.send(err)
@@ -51,7 +51,7 @@ export const getUsers2 = (req, res) => {
    })
 }
 
-export const getUser = (req, res) => {
+const getUser = (req, res) => {
    User.findById(req.params.userId, (err, user) => {
       if (err) {
          res.send(err)
@@ -60,7 +60,7 @@ export const getUser = (req, res) => {
    })
 }
 
-export const updateUser = (req, res) => {
+const updateUser = (req, res) => {
    User.findOneAndUpdate(
       { _id: req.params.userId },
       req.body,
@@ -74,7 +74,7 @@ export const updateUser = (req, res) => {
    )
 }
 
-export const removeUser = (req, res) => {
+const removeUser = (req, res) => {
    User.deleteOne({ _id: req.params.userId }, (err, user) => {
       if (err) {
          res.send(err)
@@ -83,7 +83,7 @@ export const removeUser = (req, res) => {
    })
 }
 
-export const newGroup = (req, res) => {
+const newGroup = (req, res) => {
    let newGroup = new Group(req.body)
 
    newGroup.save((err, group) => {
@@ -94,7 +94,7 @@ export const newGroup = (req, res) => {
    })
 }
 
-export const updateGroup = (req, res) => {
+const updateGroup = (req, res) => {
    console.log(req.params.GID)
    Group.findOneAndUpdate(
       { _id: req.params.GID },
@@ -109,7 +109,7 @@ export const updateGroup = (req, res) => {
    )
 }
 
-export const getGroup = (req, res) => {
+const getGroup = (req, res) => {
    Group.find({}, (err, group) => {
       if (err) {
          res.send(err)
@@ -118,7 +118,7 @@ export const getGroup = (req, res) => {
    })
 }
 
-export const newMessage = (req, res) => {
+const newMessage = (req, res) => {
    let GM = new GroupMess(req.body)
 
    GM.save((err, mess) => {
@@ -129,11 +129,25 @@ export const newMessage = (req, res) => {
    })
 }
 
-export const getGroupMess = (req, res) => {
+const getGroupMess = (req, res) => {
    GroupMess.find({}, (err, mess) => {
       if (err) {
          res.send(err)
       }
       res.json(mess)
    })
+}
+
+module.exports = {
+   addUser,
+   getUser,
+   getUsers,
+   updateUser,
+   removeUser,
+   addUser2,
+   newGroup,
+   getGroup,
+   getGroupMess,
+   newMessage,
+   updateGroup,
 }

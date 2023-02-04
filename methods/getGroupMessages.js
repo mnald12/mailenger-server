@@ -2,7 +2,7 @@ const Imap = require('imap')
 const MailParser = require('mailparser')
 const moment = require('moment')
 
-export const getGroupMessages = (req, res) => {
+const getGroupMessages = (req, res) => {
    const fetchMessage = () =>
       new Promise((resolve) => {
          const imap = new Imap({
@@ -74,3 +74,5 @@ export const getGroupMessages = (req, res) => {
       })
    fetchMessage().then((messages) => res.json(messages))
 }
+
+module.exports = { getGroupMessages }

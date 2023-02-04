@@ -1,6 +1,6 @@
 const Imap = require('imap')
 
-export const login = (req, res) => {
+const login = (req, res) => {
    const imap = new Imap({
       user: req.params.email,
       password: req.params.pwd,
@@ -24,3 +24,5 @@ export const login = (req, res) => {
 
    imap.connect()
 }
+
+module.exports = { login }
