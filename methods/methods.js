@@ -1,10 +1,11 @@
-import mongoose from 'mongoose'
-import {
+const mongoose = require('mongoose')
+
+const {
    GroupMessageSchema,
    GroupSchema,
    UserSchema,
    UserSchema2,
-} from '../schema/schema'
+} = require('../schema/schema')
 
 const User = mongoose.model('User', UserSchema)
 const User2 = mongoose.model('User2', UserSchema2)

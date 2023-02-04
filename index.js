@@ -1,9 +1,9 @@
-import express from 'express'
-import mongoose from 'mongoose'
-import bodyParser from 'body-parser'
+const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const path = require('path')
 
-import {
+const {
    addUser,
    getUser,
    getUsers,
@@ -15,12 +15,12 @@ import {
    getGroupMess,
    newMessage,
    updateGroup,
-} from './methods/methods'
+} = require('./methods/methods.js')
 
-import { sendMessage } from './methods/sendMessage'
-import { getMessages } from './methods/getMessages'
-import { getGroupMessages } from './methods/getGroupMessages'
-import { login } from './methods/login'
+const { sendMessage } = require('./methods/sendMessage.js')
+const { getMessages } = require('./methods/getMessages.js')
+const { getGroupMessages } = require('./methods/getGroupMessages.js')
+const { login } = require('./methods/login.js')
 
 const http = require('http')
 const app = express()
