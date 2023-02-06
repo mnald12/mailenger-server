@@ -55,8 +55,16 @@ io.on('connection', (socket) => {
       passID(IDS)
    })
 
-   socket.on('send-offer', (ownId, id, localDescription, name, mode) => {
-      io.to(id).emit('offer', ownId, localDescription, name, mode)
+   socket.on('get-start', (email, id, callerId, mode) => {
+      io.to(id).emit('calling', email, callerId, mode)
+   })
+
+   socket.on('is-ready', (id) => {
+      io.to(id).emit('ready')
+   })
+
+   socket.on('send-offer', (id, offer) => {
+      io.to(id).emit('offer', offer)
    })
 
    socket.on('send-answer', (id, localDescription) => {
