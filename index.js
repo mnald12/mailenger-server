@@ -45,10 +45,14 @@ io.on('connection', (socket) => {
    })
 
    socket.on('get-id', (email, passID) => {
-      for (let i of connected) {
-         if (i.email === email) {
-            passID(i.id)
+      for (let i = 0; i < connected.length; i++) {
+         if (connected[i].email === email) {
+            passID(connected[i].id)
             break
+         } else {
+            if (i === connected.length - 1) {
+               passID(false)
+            }
          }
       }
    })
