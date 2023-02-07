@@ -45,14 +45,12 @@ io.on('connection', (socket) => {
    })
 
    socket.on('get-id', (email, passID) => {
-      let IDS
       for (let i of connected) {
          if (i.email === email) {
-            IDS = i.id
+            passID(i.id)
             break
          }
       }
-      passID(IDS)
    })
 
    socket.on('get-start', (email, id, callerId, mode) => {
